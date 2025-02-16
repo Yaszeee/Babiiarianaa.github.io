@@ -3,147 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will you be my Valentine? 💕</title>
+    <title>Bar, Line, Pie & Histogram Graph - I LOVE MY BABI</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             text-align: center;
-            font-family: 'Arial', sans-serif;
-            background-color: #ffe6f2;
-            overflow: hidden;
-        }
-        .container {
-            margin-top: 100px;
-        }
-        #question {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff4d6d;
-        }
-        #loveText {
-            display: none;
-            font-size: 30px;
-            color: #ff4d6d;
-            font-weight: bold;
-        }
-        #noGif {
-            width: 200px;
-            height: auto;
-            margin-top: 20px;
-            display: none;
-        }
-        #yesGif {
-            display: none;
-            width: 150px;
-            height: auto;
-            margin-top: 20px;
-        }
-        .buttons {
-            margin-top: 20px;
-        }
-        button {
-            font-size: 18px;
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: 0.3s ease-in-out;
-        }
-        #yesButton {
-            background-color: #ff4d6d;
+            font-family: Arial, sans-serif;
+            background-color: black;
             color: white;
-            position: relative;
         }
-        #noButton {
-            background-color: #ddd;
-            color: black;
+        canvas {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <p id="question">Will you be my Valentine? 🥺</p>
-        <p id="loveText">Yeyyy, Iloveeyouuu babii 🥺💕</p>
-        
-        <img id="noGif" src="" alt="Sad GIF">
-        <img id="yesGif" src="https://media.giphy.com/media/GjF4SSQJNLuFx14Zpv/giphy.gif" alt="Love GIF">
-
-        <div class="buttons">
-            <button id="yesButton" onclick="yesClicked()">Yes</button>
-            <button id="noButton" onclick="noClicked()">No</button>
-        </div>
-    </div>
+    <h1>This is how much I love my babii</h1>
+    <canvas id="barChart"></canvas>
+    <canvas id="lineChart"></canvas>
+    <canvas id="pieChart"></canvas>
+    <canvas id="histogramChart"></canvas>
 
     <script>
-        let messages = [
-            "Pleaseee babii 🥺",
-            "Are you sure na po? 🥹",
-            "Really Sure? 😢",
-            "Think about it, babi 😭💔",
-            "Cutieeepotieee, pleasee 🥹",
-            "If you say no, I will be really sad. 😭",
-            "I will very sad 😭💔",
-            "I will very very very veryy sadd babii 😭💔💔",
-            "I will cry 😭",
-            "Look, I'm Crying now😭",
-            "Pleaseee say yess, babii🥺"
-        ];
+        const labels = ['Day 1', 'Day 2', 'Day 7', 'Day 120', 'Day 365', 'Forever'];
+        const loveIntensity = [100000000, 100000000, 100000000, 100000000, 100000000, 100000000];
+        
+        function createCharts() {
+            const animationOptions = {
+                animation: {
+                    duration: 4000,
+                    easing: 'easeInOutQuad'
+                }
+            };
+            
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Love Intensity',
+                        data: loveIntensity,
+                        backgroundColor: ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0', '#ffb3e6'],
+                        borderColor: '#000000',
+                        borderWidth: 2,
+                        hoverBackgroundColor: '#ff6666'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    ...animationOptions
+                }
+            });
 
-        let gifUrls = [
-            "https://media.giphy.com/media/flhDi6Bb6ySnYCjB9N/giphy.gif",
-            "https://media.giphy.com/media/3IkH0Ch704BoApSn9r/giphy.gif",
-            "https://media.giphy.com/media/K6WIhJ07gwGkIAQfwN/giphy.gif",
-            "https://media.giphy.com/media/9QRDdrmnlEH2pRt3qL/giphy.gif",
-            "https://media.giphy.com/media/dI53rvCkTsyJWFA3Fc/giphy.gif",
-            "https://media.giphy.com/media/os0qsf8wy4wh4ir8zD/giphy.gif",
-            "https://media.giphy.com/media/0LUfX8sdxYLdYd3Mce/giphy.gif",
-            "https://media.giphy.com/media/QypTRXPIifM4VYpDS1/giphy.gif",
-            "https://media.giphy.com/media/hmWnkhWgLrx5jRH6Kk/giphy.gif",
-            "https://media.giphy.com/media/hlw5USrmXeAHlTAOds/giphy.gif",
-            "https://media.giphy.com/media/I1nwVpCaB4k36/giphy.gif"
-        ];
+            const lineCtx = document.getElementById('lineChart').getContext('2d');
+            new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Love Intensity Over Time',
+                        data: loveIntensity,
+                        borderColor: '#ff6384',
+                        backgroundColor: 'rgba(255, 99, 132, 0.4)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#ff6384'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    ...animationOptions
+                }
+            });
 
-        let messageIndex = 0;
-        let yesButton = document.getElementById("yesButton");
-        let noButton = document.getElementById("noButton");
-        let noGif = document.getElementById("noGif");
-        let loveText = document.getElementById("loveText");
-        let yesGif = document.getElementById("yesGif");
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Love Intensity Distribution',
+                        data: loveIntensity,
+                        backgroundColor: ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0', '#ffb3e6'],
+                        borderColor: '#000000',
+                        borderWidth: 2,
+                        hoverBackgroundColor: '#ff6666'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    ...animationOptions
+                }
+            });
 
-        function yesClicked() {
-            document.body.innerHTML = "";
-            loveText.style.display = "block";
-            yesGif.style.display = "block";
-            document.body.appendChild(loveText);
-            document.body.appendChild(yesGif);
+            const histogramCtx = document.getElementById('histogramChart').getContext('2d');
+            new Chart(histogramCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Love Intensity Histogram',
+                        data: loveIntensity,
+                        backgroundColor: '#66b3ff',
+                        borderColor: '#000000',
+                        borderWidth: 2,
+                        hoverBackgroundColor: '#ff6666',
+                        barPercentage: 1.0,
+                        categoryPercentage: 1.0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    ...animationOptions
+                }
+            });
         }
-
-        function noClicked() {
-            if (messageIndex < messages.length) {
-                noButton.innerText = messages[messageIndex];
-                noGif.src = gifUrls[messageIndex];
-                noGif.style.display = "block";
-                messageIndex++;
-            }
-
-            // Increase Yes button size
-            let currentSize = parseInt(window.getComputedStyle(yesButton).fontSize);
-            yesButton.style.fontSize = (currentSize + 5) + "px";
-            yesButton.style.padding = (currentSize + 5) / 2 + "px";
-
-            // Final state when No is clicked too many times
-            if (messageIndex === messages.length) {
-                yesButton.style.position = "absolute";
-                yesButton.style.top = "50%";
-                yesButton.style.left = "50%";
-                yesButton.style.transform = "translate(-50%, -50%)";
-                yesButton.style.fontSize = "50px";
-                yesButton.style.padding = "20px 40px";
-                noButton.style.display = "none"; 
-            }
-        }
+        
+        createCharts();
+        setInterval(() => {
+            document.querySelectorAll("canvas").forEach(canvas => canvas.remove());
+            document.body.insertAdjacentHTML('beforeend', '<canvas id="barChart"></canvas><canvas id="lineChart"></canvas><canvas id="pieChart"></canvas><canvas id="histogramChart"></canvas>');
+            createCharts();
+        }, 7000);
     </script>
-
 </body>
 </html>
